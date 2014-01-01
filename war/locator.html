@@ -1,0 +1,166 @@
+<!doctype html>
+<html  lang="en">
+  <head>
+  
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    
+    <style>
+    	#map_canvas{
+    		width:100%;
+    		height:425px;
+    	}
+    </style>
+    <script src="js/modernizr.js"></script>
+    
+     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script>
+      function initialize() {
+    	var myLatLng = new google.maps.LatLng(28.6100, 77.2300);
+        var map_canvas = document.getElementById('map_canvas');
+        var map_options = {
+          center: myLatLng,
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(map_canvas, map_options)
+        
+        var marker = new google.maps.Marker({
+        	position : myLatLng,
+        	map:map,
+        	title:'New Delhi'       	
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+      
+    </script>
+    
+    
+  </head>
+  <body>
+  <div class="fixed">
+  <nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="index.html">Vaccinate</a></h1>
+    </li>
+    
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="active"><a href="#">Hello</a></li>
+      <li><a href="#aboutus">Who are we?</a></li>
+      
+      <li class="has-dropdown">
+        <a href="#">Vaccinate</a>
+        <ul class="dropdown">
+          <li><a href="scheduler.jsp">Scheduler</a></li>
+          <li class="active"><a href="#">Locator</a></li>
+          <li><a href="consult.html">Consultation</a></li>
+          
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section -->
+    
+  </section>
+</nav>
+</div>
+
+
+	<div class="row">
+		<div class="large-12 columns">
+		
+			<h2> Find the nearest Vaccination center in your locality</h2>
+		
+		</div>
+	
+	</div>
+
+  <div class="row">    
+    
+    <!-- Main Content Section -->
+    <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+    <div class="large-8 push-4 columns">
+      
+      <h3>Map<small> Get the directions</small> <a href="#" class="button right small">View All</a></h3>
+      
+      <div id="map_canvas"></div>
+                  
+    </div>
+    
+    <br />
+    <!-- Nav Sidebar -->
+    <!-- This is source ordered to be pulled to the left on larger screens -->
+    <div class="large-4 pull-8 columns">
+        Enter your pincode here
+      <ul class="side-nav">
+        <li><input type="text" name="pincode" placeholder="Pin code"></li>
+        <hr />
+        
+        <li id="numResults" class="right"> <strong>2</strong> Results found</li>
+        <div class="results" >
+        	<table style="width:100%">
+        		<tr>
+        			<td><a href="#">Shahdra Hospital</a></td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<a href="#">Navin Hospital</a>
+        			</td>
+        		</tr>
+        	
+        	</table>
+        
+        </div>
+      </ul>
+      
+      <p><img src="http://placehold.it/320x240&text=Ad" /></p>
+        
+    </div>
+    
+  </div>
+    
+  
+  <!-- Footer -->
+  
+  <footer class="row">
+    <div class="large-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© Copyright no one at all. Go to town.</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="index.html#aboutus">About Vaccinate</a></li>
+            <li><a href="index.html#feedback">Feedback</a></li>
+            <li><a href="faqs.html">FAQs</a></li>
+            <li><a href="volunteer.html">Volunteer</a></li>
+          </ul>
+        </div>
+      </div>
+    </div> 
+  </footer>
+
+
+
+
+   
+    
+        
+    <script src="js/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script src="js/foundation.topbar.js"></script>
+    <!-- <script src="js/foundation.orbit.js"></script> -->
+    <!-- <script src="js/foundation/foundation.abide.js"></script>-->
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
