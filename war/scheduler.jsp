@@ -64,7 +64,7 @@
 		
 		<div class="large-6 columns push-1">
 			<a href="#" class="button tiny" id="pdf">Download</a>
-			<a href="#" class="button tiny">Add to Google Drive</a>
+			<a href="#" class="button tiny" id="drive">Add to Google Drive</a>
 			<a href="#" class="button tiny">Add to Calendar</a>
 		</div>
 		
@@ -123,15 +123,36 @@
     <script src="js/foundation-datepicker.js"></script>
     <script src="js/gcal.js"></script>
     <script src="js/date.js"></script>
-    <script src="https://raw.github.com/MrRio/jsPDF/master/dist/jspdf.min.js"></script>
+    <script src="js/jspdf.min.js"></script>
+    <script src="js/jspdf.plugin.from_html.js"></script>
+    <script src="js/jspdf.plugin.cell.js"></script>
     <!-- <script src="js/foundation.orbit.js"></script> -->
     
     <script>
     	$(document).foundation();
+    	
+    	function tableToJson(table) { 
+    		var data = []; // first row needs to be headers var headers = [];
+    		var headers=[];
+    		for (var i=0; i<table.rows[0].cells.length; i++) {
+    		 headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,''); 
+    		} 
+    		// go through cells 
+    		for (var i=1; i<table.rows.length; i++) { 
+    		var tableRow = table.rows[i]; var rowData = {}; 
+    		for (var j=0; j<tableRow.cells.length; j++) { 
+    			var dat1 = tableRow.cells[j].innerHTML.replace(/<strong>/gi,'');
+    			var dat2 = dat1.replace(/<\/strong>/gi,'');
+    			rowData[ headers[j] ] = dat2 
+    		} data.push(rowData); 
+    		} 
+    		return data; 
+    		}
+    	
       function showTable(schedule){
     	  var startContent = "<div class='large-3 columns'><strong> Child Name: </div><div class='large-3 columns pull-1' style='text-transform:uppercase'>"+ $('#childName').val() + "</strong> </div> <div class='large-3 columns'> <strong>Date of Birth : </div><div class='large-3 columns pull-1'>" + $('#datepicker').val() + "</strong></div> <br/> <hr />"; 
     	  
-    	  var tableContent =  startContent+ "<table> <thead> <tr> <th> Age </th> <th width =\"100\"> Due Date </th> <th width=\"170\"> Vaccine </th> <th> Comments </th> </tr> </thead> <tbody> ";
+    	  var tableContent =  startContent+ "<table id='schtable'> <thead> <tr> <th> Age </th> <th width =\"100\"> Due Date </th> <th width=\"170\"> Vaccine </th> <th> Comments </th> </tr> </thead> <tbody> ";
     	  
     	  for(var i = 0 ; i <schedule.length ; i++){
     		  tableContent += "<tr> <td>"
@@ -183,7 +204,34 @@
           doc.save(name);
     	  
       });
+      
+      $('#drive').click(function(){
+    	  var table = tableToJson($('#schtable').get(0))
+    	  var doc = new jsPDF('p', 'pt', 'a4', true);
+    	  doc.setFontSize(12);
+    	  doc.cellInitialize();
+    	  
+    	  
+    	  doc.table(table, {}, true, true, true);
+    	  
+    	   $.each(table, function (i, row){
+    		  var count = 0;
+    	    $.each(row, function (j, cell){
+    	    	 if(count == 2)
+    	    	{	doc.cell(10,200,300,50,cell,i); 
+    	    		
+    	    	}
+    	    	else 
+    	          doc.cell(10, 200,100, 50, cell, i);
+    	    	
+    	    	count = count+1;
+    	    })
+    	  })
+    	  doc.save() ;
+    	  
+      });
     	 
     </script>
   </body>
 </html>
+ 
