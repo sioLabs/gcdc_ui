@@ -16,6 +16,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.codec.Base64;
 import com.itextpdf.text.pdf.codec.Base64.OutputStream;
 
 public class SchedulerPdfCreator extends HttpServlet {
@@ -24,13 +25,15 @@ public class SchedulerPdfCreator extends HttpServlet {
 	private	ByteArrayOutputStream bAOS = new ByteArrayOutputStream();
 	
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res){
-		
-		
-		
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException{
+
+		res.setContentType("application/pdf");
+		 res.addHeader("Content-Disposition", "attachment; filename=\"test1.pdf\"");		
+
+
 		Document document = new Document(PageSize.A4,0.75f, 0.75F, 0.75F, 0.75F);
 		try {
-			PdfWriter.getInstance(document, bAOS);
+			PdfWriter.getInstance(document, res.getOutputStream());
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Erroor in PdfWriter");
@@ -59,20 +62,9 @@ public class SchedulerPdfCreator extends HttpServlet {
           
           document.close();
           
-          byte[] data = bAOS.toByteArray();
+           
           
 
-          ServletOutputStream out;
-		try {
-			out = res.getOutputStream();
-			 res.setContentType("application/pdf");
-	          out.write(data);
-	          out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error in sending data");
-			e.printStackTrace();
-		}
          
           
 	}

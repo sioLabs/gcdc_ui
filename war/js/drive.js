@@ -1,4 +1,4 @@
-
+/*
 
 var doc = new jsPDF();
 doc.setFontSize(12);
@@ -28,7 +28,7 @@ doc.line(20,92,200,92);
 doc.setTextColor(0);
 var i=0,len=100;	
 for(i=0;i<medicines.length;i++)
-/*{
+{
 	doc.setFontSize(12);
 	doc.text(20,len,medicines[i]);
 	doc.text(80,len,intake[i]);
@@ -46,53 +46,36 @@ for(i=0;i<medicines.length;i++)
 	doc.setLineWidth(0.1);
 	doc.line(20,len,200,len);
 	len+=10;
-}*/
+}
 doc.setFontSize(12);
 doc.text(20,len,'check how this is saving.');
 doc.line(20,250,50,250);
-doc.text(20,255,"Signature");
+doc.text(20,255,"Signature");*/
+
 var fileName = "test"+".pdf";
-var data = doc.output();
+//var data = doc.output();
+var pdf = $.get('/getPDF');
+/*var data = convertDataURIToBinary(pdf.responseText);
 var buffer = new ArrayBuffer(data.length);
 var array = new Uint8Array(buffer);
 for (var i = 0; i < data.length; i++) {
 	array[i] = data.charCodeAt(i);
 }
+*/
 
+var array = new ArrayBuffer(pdf.responseText);
 var blob = new Blob(
 		[array],
 		{type: 'application/pdf', encoding: 'raw'}
 );
+
+console.log(blob);
 
 //saveAs(blob, fileName);
 var CLIENT_ID = '296331844386-34pj6h3emkir85tt09ptip1ponfuqnso.apps.googleusercontent.com';
 var SCOPES = 'https://www.googleapis.com/auth/drive';
 var folderID="";
 
-
-
-//
-//function handleAuthResult(authResult) {
-//	var authButton = document.getElementById('authorizeButton');
-//	// var filePicker = document.getElementById('filePicker');
-//	authButton.style.display = 'none';
-//	// filePicker.style.display = 'none';
-//	if (authResult && !authResult.error) {
-//		// Access token has been successfully retrieved, requests can be sent to the API.
-//		// filePicker.style.display = 'block';
-//		document.getElementById("upload_to_drive").onclick = uploadFile;
-//		document.getElementById("upload_folder").onclick = uploadFolder;
-//		//filePicker.onchange = uploadFile;
-//	} else {
-//		// No access token could be retrieved, show the button to start the authorization flow.
-//		authButton.style.display = 'block';
-//		authButton.onclick = function() {
-//			gapi.auth.authorize(
-//					{'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false},
-//					handleAuthResult);
-//		};
-//	}
-//}
 
 /**
  * Start the file upload.
@@ -103,17 +86,8 @@ var folderID="";
 function uploadFile() {
 	gapi.client.load('drive', 'v2', function() {
 		console.log("file insert");
-//		var blob = new Blob(["Hello world!"], { type: "text/plain" });
-		//blob.setName("PRESY");			
-		//	insertFile(blob).done(getFolderID);
-		getFolderID();
+		//getFolderID();
 		insertFile(blob);
-		setTimeout(function() {
-			$bar.addClass('animate');
-		}, 1700);
-		setTimeout(function() {
-			alert("FileUploaded! Please click home button to go back.");
-		},17000);
 	});
 }
 
@@ -177,63 +151,57 @@ function uploadFolder() {
 	
 	});
 }
+
+
 /**
  * Insert new file.
  *
  * @param {File} fileData File object to read data from.
  * @param {Function} callback Function to call when the request is complete.
  */
-
 function insertFile(fileData, callback) {
+    const boundary = '-------314159265358979323846';
+    const delimiter = "\r\n--" + boundary + "\r\n";
+    const close_delim = "\r\n--" + boundary + "--";
 
-	const boundary = '-------314159265358979323846';
-	const delimiter = "\r\n--" + boundary + "\r\n";
-	const close_delim = "\r\n--" + boundary + "--";
-	var presName="";
-	var reader = new FileReader();
-	reader.readAsBinaryString(fileData);
-	reader.onload = setTimeout(function(e) {
-		var contentType = fileData.type || 'application/octet-stream';
-//		setTimeout(function(){alert("Hello")},10000);          
-		var metadata = {
-				'title': fileName ,
-				'mimeType': contentType,
-				"parents": [{
-					"kind": "drive#file",
-					"id": folderID
-				}]
-		};
+    var reader = new FileReader();
+    reader.readAsBinaryString(fileData);
+    reader.onload = function(e) {
+      var contentType = fileData.type || 'application/octet-stream';
+      var metadata = {
+        'title': fileData.name,
+        'mimeType': contentType
+      };
 
-		var base64Data = btoa(reader.result);
-		var multipartRequestBody =
-			delimiter +
-			'Content-Type: application/json\r\n\r\n' +
-			JSON.stringify(metadata) +
-			delimiter +
-			'Content-Type: ' + contentType + '\r\n' +
-			'Content-Transfer-Encoding: base64\r\n' +
-			'\r\n' +
-			base64Data +
-			close_delim;
+      var base64Data = btoa(reader.result);
+      var multipartRequestBody =
+          delimiter +
+          'Content-Type: application/json\r\n\r\n' +
+          JSON.stringify(metadata) +
+          delimiter +
+          'Content-Type: ' + contentType + '\r\n' +
+          'Content-Transfer-Encoding: base64\r\n' +
+          '\r\n' +
+          base64Data +
+          close_delim;
 
-		request = gapi.client.request({
-			'path': '/upload/drive/v2/files',
-			'method': 'POST',
-			'params': {'uploadType': 'multipart'},
+      var request = gapi.client.request({
+          'path': '/upload/drive/v2/files',
+          'method': 'POST',
+          'params': {'uploadType': 'multipart'},
+          'headers': {
+            'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+          },
+          'body': multipartRequestBody});
+      if (!callback) {
+        callback = function(file) {
+          console.log(file)
+        };
+      }
+      request.execute(callback);
+    }
+  }
 
-			'headers': {
-				'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
-			},
-			'body': multipartRequestBody});
-		if (!callback) {
-			callback = function(file) {
-				console.log(file)
-			};
-		}
-		request.execute(callback);
-		alert("FileUploaded! Please click home button to go back.Please Wait for sometime to upload!");
-	},15000);
-}
 
 ///////////////////////my code
 
