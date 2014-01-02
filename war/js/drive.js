@@ -28,7 +28,7 @@ doc.line(20,92,200,92);
 doc.setTextColor(0);
 var i=0,len=100;	
 for(i=0;i<medicines.length;i++)
-{
+/*{
 	doc.setFontSize(12);
 	doc.text(20,len,medicines[i]);
 	doc.text(80,len,intake[i]);
@@ -46,12 +46,12 @@ for(i=0;i<medicines.length;i++)
 	doc.setLineWidth(0.1);
 	doc.line(20,len,200,len);
 	len+=10;
-}
+}*/
 doc.setFontSize(12);
 doc.text(20,len,'check how this is saving.');
 doc.line(20,250,50,250);
 doc.text(20,255,"Signature");
-var fileName = "Prescription_Watson_2014-01-02 00:00:00_1900-01-01 18:09:04.663300"+".pdf";
+var fileName = "test"+".pdf";
 var data = doc.output();
 var buffer = new ArrayBuffer(data.length);
 var array = new Uint8Array(buffer);
@@ -66,17 +66,8 @@ var blob = new Blob(
 
 //saveAs(blob, fileName);
 var CLIENT_ID = '296331844386-34pj6h3emkir85tt09ptip1ponfuqnso.apps.googleusercontent.com';
-var SCOPES = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/plus.login';
+var SCOPES = 'https://www.googleapis.com/auth/drive';
 var folderID="";
-/**
- * Called when the client library is loaded to start the auth flow.
- */
-
-/**
- * Called when authorization server replies.
- *
- * @param {Object} authResult Authorization result.
- */
 
 
 
@@ -144,7 +135,7 @@ function getFolderID() {
 			//     var fileInfo = document.createElement('li');
 			//      fileInfo.appendChild(document.createTextNode( 'TITLE: ' + title  + 'ID:' + id ));                
 			//        document.getElementById('content').appendChild(fileInfo);
-			if (title=="testFolder")
+			if (title=="ThisIsTheEnd")
 			{
 
 				folderID=id;
@@ -159,9 +150,12 @@ function getFolderID() {
 
 };
 
+/*
+ * Ashutosh Singh :  Code to create a folder in Google Drive.
+ */
 function uploadFolder() {
 	
-	console.log('creating folder now');
+	//console.log('creating folder now');
 		gapi.client.load('drive', 'v2', function() {
 		
 		var request = gapi.client.request({
@@ -177,8 +171,8 @@ function uploadFolder() {
 		}); 
 		
 		request.execute(function(resp){
-			console.log(resp);
-			console.log('folder created');
+			//console.log(resp);
+			//console.log('folder created');
 		});
 	
 	});
@@ -208,8 +202,6 @@ function insertFile(fileData, callback) {
 					"kind": "drive#file",
 					"id": folderID
 				}]
-
-
 		};
 
 		var base64Data = btoa(reader.result);
@@ -243,13 +235,6 @@ function insertFile(fileData, callback) {
 	},15000);
 }
 
-/* CREATING FOLDER IN DRIVE NAMED "HeathMate Prescriptions"*/ 
-function createFolder(fileData, callback) {
-
-
-} 
-
-
 ///////////////////////my code
 
 
@@ -257,44 +242,50 @@ var apiKey = 'AIzaSyB58_n-hiIRJ1FizLyqU810ihWjY0Sku1Q';
 
 var data = [];
 
-function handleClientLoad() {
-	gapi.client.setApiKey(apiKey);
-	window.setTimeout(checkAuth,1);
-	checkAuth();
-}
-
-function checkAuth() {
-	gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
-			handleAuthResult);
-}
-
-function handleAuthResult(authResult) {
-	var authorizeButton = document.getElementById('driveBtn');
-	if (authResult) {
-		//authorizeButton.style.visibility = 'hidden';
-		makeApiCall();
-	} else {
-		//authorizeButton.style.visibility = '';
-		authorizeButton.onclick = handleAuthClick;
-	}
-}
-
-function handleAuthClick(event) {
-	gapi.auth.authorize(
-			{client_id: clientId, scope: scopes, immediate: false},
-			handleAuthResult);
-	return false;
-}
 
 
-
-function makeApiCall() {
-	console.log('youyo honeyt singh');
-	uploadFolder();
-}
 
 
 $(document).ready(function(){
+	
+
+	function handleClientLoad() {
+		gapi.client.setApiKey(apiKey);
+		window.setTimeout(checkAuth,1);
+		//checkAuth();
+	}
+	
+	function checkAuth() {
+		gapi.auth.authorize({client_id: clientId, scope: SCOPES, immediate: true},
+				handleAuthResult);
+	}
+
+	function handleAuthResult(authResult) {
+		//var authorizeButton = document.getElementById('driveBtn');
+		if (authResult) {
+			//authorizeButton.style.visibility = 'hidden';
+			makeApiCall();
+		} else {
+			//authorizeButton.style.visibility = '';
+			//authorizeButton.onclick = handleAuthClick;
+			handleAuthClick();
+		}
+	}
+
+	function handleAuthClick(event) {
+		gapi.auth.authorize(
+				{client_id: clientId, scope: SCOPES, immediate: false},
+				handleAuthResult);
+		return false;
+	}
+
+
+
+	function makeApiCall() {
+		console.log('yoyo honey singh');
+		uploadFolder();
+		uploadFile();
+	}
 	
 	function uploadFolder() {
 		
