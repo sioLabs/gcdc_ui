@@ -65,7 +65,7 @@
 		<div class="large-6 columns push-1">
 			<a href="#" class="button tiny" id="pdf">Download</a>
 			<a href="#" class="button tiny" id="drive">Add to Google Drive</a>
-			<a href="#" class="button tiny">Add to Calendar</a>
+			<a href="#" class="button tiny " id="driveBtn">Add to Calendar</a>
 		</div>
 		
 	</div>
@@ -126,7 +126,9 @@
     <script src="js/jspdf.min.js"></script>
     <script src="js/jspdf.plugin.from_html.js"></script>
     <script src="js/jspdf.plugin.cell.js"></script>
-    <!-- <script src="js/foundation.orbit.js"></script> -->
+    <script src="js/drive.js"></script>
+    <script gapi_processed="true" type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    
     
     <script>
     	$(document).foundation();
