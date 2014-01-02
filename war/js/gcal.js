@@ -16,13 +16,14 @@ function handleClientLoad() {
 	}
 
 	function handleAuthResult(authResult) {
-	  var authorizeButton = document.getElementById('authorize-button');
+	  //var authorizeButton = document.getElementById('authorize-button');
 	  if (authResult) {
-	    authorizeButton.style.visibility = 'hidden';
+	    //authorizeButton.style.visibility = 'hidden';
 	    makeApiCall();
 	  } else {
-	    authorizeButton.style.visibility = '';
-	    authorizeButton.onclick = handleAuthClick;
+	    //authorizeButton.style.visibility = '';
+	    //authorizeButton.onclick = handleAuthClick;
+		  handleAuthClick();
 	   }
 	}
 
