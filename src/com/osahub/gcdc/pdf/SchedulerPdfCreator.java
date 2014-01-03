@@ -18,6 +18,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.codec.Base64;
 import com.itextpdf.text.pdf.codec.Base64.OutputStream;
+import com.sun.beans.editors.ByteEditor;
 
 public class SchedulerPdfCreator extends HttpServlet {
 	
@@ -30,10 +31,11 @@ public class SchedulerPdfCreator extends HttpServlet {
 		res.setContentType("application/pdf");
 		 res.addHeader("Content-Disposition", "attachment; filename=\"test1.pdf\"");		
 
+		 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		Document document = new Document(PageSize.A4,0.75f, 0.75F, 0.75F, 0.75F);
 		try {
-			PdfWriter.getInstance(document, res.getOutputStream());
+			PdfWriter.getInstance(document, baos);
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Erroor in PdfWriter");
@@ -42,6 +44,7 @@ public class SchedulerPdfCreator extends HttpServlet {
 		
 		  document.open();
 
+		
           PdfPTable table = new PdfPTable(3); // 3 columns.
 
           PdfPCell cell1 = new PdfPCell(new Paragraph("Cell 1"));
@@ -53,6 +56,7 @@ public class SchedulerPdfCreator extends HttpServlet {
           table.addCell(cell3);
 
           try {
+        	  document.add(new Paragraph("Heelo World Here"));
 			document.add(table);
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
@@ -61,6 +65,14 @@ public class SchedulerPdfCreator extends HttpServlet {
 		}
           
           document.close();
+          
+          res.setContentType("application/pdf");
+          res.setContentLength(baos.size());
+          
+          ServletOutputStream os = res.getOutputStream();
+          baos.writeTo(os);
+          os.flush();
+          os.close();
           
            
           

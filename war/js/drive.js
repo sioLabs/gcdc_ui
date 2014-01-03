@@ -9,77 +9,78 @@ function httpGet(theUrl)
 }
 
 
-
-var doc = new jsPDF();
-doc.setFontSize(12);
-doc.text(20, 20, 'Dr. '+'Watson'+'('+'Dermatologist'+')');
-doc.text(20,30,'Siolbas');
-doc.text(20,40,'Shadra ,new Delhi'+', '+'New Delhi');
-		doc.setLineWidth(1);
-doc.line(20,45, 200,45);
-doc.setLineWidth(0.3);
-doc.line(20,47,200,47);
-doc.text(20,55,'Patient name : '+'ola');
-doc.text(20,65,'Patient age : '+'-1');
-doc.text(20,75,'Patient sex : '+'Male');
-doc.setLineWidth(1);
-doc.line(20,80, 200, 80);
-var medicines=["asjkld"];
-var intake=["3"];
-var num=["3"];
-var tc=["Before Breakfast_After Breakfast"];
-//var comments=check how this is saving.;
-doc.setTextColor(100);
-doc.text(20,90,'Medicine Name');
-doc.text(80,90,'Intake Method');
-doc.text(140,90,'Course Duration');
-doc.setLineWidth(0.5);
-doc.line(20,92,200,92);
-doc.setTextColor(0);
-var i=0,len=100;	
-for(i=0;i<medicines.length;i++)
-{
-	doc.setFontSize(12);
-	doc.text(20,len,medicines[i]);
-	doc.text(80,len,intake[i]);
-	doc.text(140,len,num[i]);
-	time=tc[i].split('_');
-	var j=0,x=20;
-	len+=10;
-	for(j=0;j<time.length;j++)
-	{
-		doc.setFontSize(8);
-		doc.text(x,len,time[j]);
-		x+=30;
-	}
-	len+=5;
-	doc.setLineWidth(0.1);
-	doc.line(20,len,200,len);
-	len+=10;
-}
-doc.setFontSize(12);
-doc.text(20,len,'check how this is saving.');
-doc.line(20,250,50,250);
-doc.text(20,255,"Signature");
+//
+//var doc = new jsPDF();
+//doc.setFontSize(12);
+//doc.text(20, 20, 'Dr. '+'Watson'+'('+'Dermatologist'+')');
+//doc.text(20,30,'Siolbas');
+//doc.text(20,40,'Shadra ,new Delhi'+', '+'New Delhi');
+//		doc.setLineWidth(1);
+//doc.line(20,45, 200,45);
+//doc.setLineWidth(0.3);
+//doc.line(20,47,200,47);
+//doc.text(20,55,'Patient name : '+'ola');
+//doc.text(20,65,'Patient age : '+'-1');
+//doc.text(20,75,'Patient sex : '+'Male');
+//doc.setLineWidth(1);
+//doc.line(20,80, 200, 80);
+//var medicines=["asjkld"];
+//var intake=["3"];
+//var num=["3"];
+//var tc=["Before Breakfast_After Breakfast"];
+////var comments=check how this is saving.;
+//doc.setTextColor(100);
+//doc.text(20,90,'Medicine Name');
+//doc.text(80,90,'Intake Method');
+//doc.text(140,90,'Course Duration');
+//doc.setLineWidth(0.5);
+//doc.line(20,92,200,92);
+//doc.setTextColor(0);
+//var i=0,len=100;	
+//for(i=0;i<medicines.length;i++)
+//{
+//	doc.setFontSize(12);
+//	doc.text(20,len,medicines[i]);
+//	doc.text(80,len,intake[i]);
+//	doc.text(140,len,num[i]);
+//	time=tc[i].split('_');
+//	var j=0,x=20;
+//	len+=10;
+//	for(j=0;j<time.length;j++)
+//	{
+//		doc.setFontSize(8);
+//		doc.text(x,len,time[j]);
+//		x+=30;
+//	}
+//	len+=5;
+//	doc.setLineWidth(0.1);
+//	doc.line(20,len,200,len);
+//	len+=10;
+//}
+//doc.setFontSize(12);
+//doc.text(20,len,'check how this is saving.');
+//doc.line(20,250,50,250);
+//doc.text(20,255,"Signature");
 
 var fileName = "test.pdf";
-var data = doc.output();
+//var data = doc.output();
 //console.log(data);
-var data = httpGet('/getPDF');
+var data = httpGet('getPDF');
 //var data = pdf.responseText;
-console.log(data);
+//console.log(data);
 var buffer = new ArrayBuffer(data.length);
 var array = new Uint8Array(buffer);
 for (var i = 0; i < data.length; i++) {
 	array[i] = data.charCodeAt(i);
 }
-
+//
 var blob = new Blob(
 		[array],
 		{type: 'application/pdf', encoding: 'raw'}
 );
 
-console.log(blob);
+//blob = data;
+//console.log(blob);
 
 
 //saveAs(blob, fileName);
@@ -104,8 +105,10 @@ function uploadFile() {
 	
 	gapi.client.load('drive', 'v2', function() {
 		console.log("file insert");
-		getFolderID();
-		insertFile(blob);
+	//	getFolderID();
+		insertFile(blob, function(){
+			console.log('ok212');
+		});
 	});
 }
 
@@ -182,18 +185,22 @@ function insertFile(fileData, callback) {
     const delimiter = "\r\n--" + boundary + "\r\n";
     const close_delim = "\r\n--" + boundary + "--";
 
-    //console.log('file is' + fileData);
+    console.log('file is' + fileData);
     var reader = new FileReader();
     reader.readAsBinaryString(fileData);
+    reader.onloadstart = function(e){
+    	console.log('loading started');
+    };
     reader.onload = function(e) {
+      console.log('file read');
       var contentType = fileData.type || 'application/octet-stream';
       var metadata = {
         'title': fileName,
-        'mimeType': contentType,
-        "parents": [{
-            "kind": "drive#file",
-            "id": folderID
-        }]
+        'mimeType': contentType
+//        "parents": [{
+//            "kind": "drive#file",
+//            "id": folderID
+//        }]
 
       };
 
@@ -233,12 +240,6 @@ function insertFile(fileData, callback) {
 
 
 var apiKey = 'AIzaSyB58_n-hiIRJ1FizLyqU810ihWjY0Sku1Q';
-
-var data = [];
-
-
-
-
 
 $(document).ready(function(){
 	
