@@ -1,4 +1,14 @@
-/*
+function httpGet(theUrl)
+{
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+
 
 var doc = new jsPDF();
 doc.setFontSize(12);
@@ -50,26 +60,27 @@ for(i=0;i<medicines.length;i++)
 doc.setFontSize(12);
 doc.text(20,len,'check how this is saving.');
 doc.line(20,250,50,250);
-doc.text(20,255,"Signature");*/
+doc.text(20,255,"Signature");
 
-var fileName = "test"+".pdf";
-//var data = doc.output();
-var pdf = $.get('/getPDF');
-/*var data = convertDataURIToBinary(pdf.responseText);
+var fileName = "test.pdf";
+var data = doc.output();
+//console.log(data);
+var data = httpGet('/getPDF');
+//var data = pdf.responseText;
+console.log(data);
 var buffer = new ArrayBuffer(data.length);
 var array = new Uint8Array(buffer);
 for (var i = 0; i < data.length; i++) {
 	array[i] = data.charCodeAt(i);
 }
-*/
 
-var array = new ArrayBuffer(pdf.responseText);
 var blob = new Blob(
 		[array],
 		{type: 'application/pdf', encoding: 'raw'}
 );
 
 console.log(blob);
+
 
 //saveAs(blob, fileName);
 var CLIENT_ID = '296331844386-34pj6h3emkir85tt09ptip1ponfuqnso.apps.googleusercontent.com';
@@ -83,10 +94,17 @@ var folderID="";
  * @param {Object} evt Arguments from the file selector.
  */
 
+var filePicker = document.getElementById('filePicker');
+filePicker.onchange = uploadFile;
+
+
+
 function uploadFile() {
+	
+	
 	gapi.client.load('drive', 'v2', function() {
 		console.log("file insert");
-		//getFolderID();
+		getFolderID();
 		insertFile(blob);
 	});
 }
@@ -164,13 +182,19 @@ function insertFile(fileData, callback) {
     const delimiter = "\r\n--" + boundary + "\r\n";
     const close_delim = "\r\n--" + boundary + "--";
 
+    //console.log('file is' + fileData);
     var reader = new FileReader();
     reader.readAsBinaryString(fileData);
     reader.onload = function(e) {
       var contentType = fileData.type || 'application/octet-stream';
       var metadata = {
-        'title': fileData.name,
-        'mimeType': contentType
+        'title': fileName,
+        'mimeType': contentType,
+        "parents": [{
+            "kind": "drive#file",
+            "id": folderID
+        }]
+
       };
 
       var base64Data = btoa(reader.result);
@@ -194,7 +218,9 @@ function insertFile(fileData, callback) {
           },
           'body': multipartRequestBody});
       if (!callback) {
+    	  
         callback = function(file) {
+        	console.log('in callback');
           console.log(file)
         };
       }
