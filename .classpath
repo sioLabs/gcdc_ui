@@ -7,6 +7,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jsr107cache-1.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/jta-1.1.jar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
-	<classpathentry kind="lib" path="D:/ECLIPSE_GCDC/gcdc_ui/war/WEB-INF/lib/itextg-5.4.5.jar"/>
+	<classpathentry kind="lib" path="E:/jars/joda-time/joda-time-2.3/joda-time-2.3.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/itextg-5.4.5.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

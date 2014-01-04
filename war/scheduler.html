@@ -201,7 +201,7 @@ HPV</strong> </td>
 						
 					</li>
 					<li>
-						<input type="text" placeholder="Date of Birth" id="datepicker" />
+						<input type="text" placeholder="Date of Birth" id="dob" />
 					</li>
 					<li>
 						
@@ -331,13 +331,13 @@ HPV</strong> </td>
       
       //$('#datepicker').click(function(){
     	  
-    	 $('#datepicker').fdatepicker({
+    	 $('#dob').fdatepicker({
     		 format:'mm-dd-yyyy'
     	 }); 
       //});
       //code for the generate function click
       $('#generate').click(function(){
-    	  var dob = $('#datepicker').val();
+    	  var dob = $('#dob').val();
     	  var schedule = getPersonalVaccinationSchedule(dob);
     	  showTable(schedule);
     	  $('.schBtns').show();
