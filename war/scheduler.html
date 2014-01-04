@@ -1,138 +1,290 @@
 <!doctype html>
-<html  lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation | Welcome</title>
-    <link rel="stylesheet" href="css/foundation.css" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">    
-    <link rel="stylesheet" href="css/foundation-datepicker.css" date-date-format="dd-mm-yyyy" />
-    <script src="js/modernizr.js"></script>
-  </head>
-  <body>
-  <div class="fixed">
-  <nav class="top-bar" data-topbar>
-  <ul class="title-area">
-    <li class="name">
-      <h1><a href="/index.html">Vaccinate</a></h1>
-    </li>
-    
-  </ul>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Foundation | Welcome</title>
+<link rel="stylesheet" href="css/foundation.css" />
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="css/foundation-datepicker.css"
+	date-date-format="dd-mm-yyyy" />
+<script src="js/modernizr.js"></script>
+</head>
+<body>
+	<div class="fixed">
+		<nav class="top-bar" data-topbar>
+			<ul class="title-area">
+				<li class="name">
+					<h1>
+						<a href="/index.html">Vaccinate</a>
+					</h1>
+				</li>
 
-  <section class="top-bar-section">
-    <!-- Right Nav Section -->
-    <ul class="right">
-      <li class="active"><a href="#">Hello</a></li>
-      <li><a href="#aboutus">Who are we?</a></li>
-      
+			</ul>
+
+			<section class="top-bar-section">
+				<!-- Right Nav Section -->
+				<ul class="right">
+					<li class="active"><a href="#">Hello</a></li>
+					<li><a href="#aboutus">Who are we?</a></li>
+
+					<li class="has-dropdown"><a href="#">Vaccinate</a>
+						<ul class="dropdown">
+							<li><a href="scheduler.jsp">Scheduler</a></li>
+							<li><a href="locator.html">Locator</a></li>
+							<li><a href="consult.html">Consultation</a></li>
+
+						</ul></li>
+						
+						
       <li class="has-dropdown">
-        <a href="#">Vaccinate</a>
-        <ul class="dropdown">
-          <li><a href="scheduler.jsp">Scheduler</a></li>
-          <li><a href="locator.html">Locator</a></li>
-          <li><a href="consult.html">Consultation</a></li>
-          
-        </ul>
+      	<a href="#">Login As</a>
+      	<ul class="dropdown">
+      		<li> <a href="#">Parent</a></li>
+      		<li> <a href="#">Hospital</a>    		
+      	
+      	</ul>
       </li>
-    </ul>
+				</ul>
 
-    <!-- Left Nav Section -->
-    
-  </section>
-</nav>
-</div>
+				<!-- Left Nav Section -->
 
-<!-- content of scheduler -->
-
-<div class="row">
-	<div class="large-12 columns">
-		<h3>Get the <strong>Personalized</strong> schedule of vaccination for your child</h3>
-		<h4><strong>Save</strong> it. <strong>Download</strong> it. Add it your calendar in one Click</h4>
+			</section>
+		</nav>
 	</div>
-	
-	<hr />
-	<div class="large-12 columns">
-		<div class="large-2 columns">
-			<input type="text" placeholder="Child's Name" id="childName"/>
+
+	<!-- content of scheduler -->
+
+	<div class="row">
+		<div class="large-12 columns">
+			<h2>
+				Personalized vaccination schedule for your child 
+			</h2>
 		</div>
-		<div class="large-2 columns ">
-		<input type="text" placeholder="Date of Birth" id="datepicker"/>
+
+		
+
+		<!--  scheduler locator looks -->
+		<div class="large-12 columns">
+			<!-- - right side on larger screens so the default scheduler -->
+			<div class="large-9 push-3 columns">
+				<h4>Vaccination Scheduler  <small> The proper immunization schedule </small></h4>
+				<hr />
+				<br />
+					<span class="schBtns">
+					<a href="#" class="button tiny schBtns" id="pdf">Download</a> <a
+					href="/getPDF" class="button tiny schBtns" id="asdrive">Add to Google
+					Drive</a> <a href="#" class="button tiny schBtns " id="driveBtn">Add to
+					Calendar </a>
+                     <hr />
+					</span>
+
+					
+					<div id="chart">
+						<table>
+							<thead>
+								<tr>
+								<td> Age </td>
+								<td width="100%" class="text-center"> Vaccine</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td> Birth </td>
+									<td><strong>B.C.G.<br /> Hep-B 1	</strong>								 </td>
+								</tr>
+								
+																<tr>
+									<td>  6 Weeks </td>
+									<td> <strong>DTP 1
+<br />IPV 1
+<br />Hep-B 2
+<br />Hib 1
+<br />Rotavirus 1
+<br />PCV 1</strong></td>
+								</tr>
+																<tr>
+									<td> 10 Weeks </td>
+									<td> <strong>DTP 2
+<br />IPV 2
+<br />Hib 2
+<br />Rotavirus 2
+<br />PCV 2 </strong></td>
+								</tr>
+																<tr>
+									<td> 14 Weeks </td>
+									<td><strong>DTP 3
+<br />IPV 3
+<br />Hib 3
+<br />Rotavirus 3
+<br />PCV 3</strong> </td>
+								</tr>
+																<tr>
+									<td> 6 Months</td>
+									<td> <strong>OPV 1 
+<br />Hep-B 3</strong></td>
+								</tr>
+																<tr>
+									<td> 9 Months </td>
+									<td><strong>OPV 2
+<br />Measles</strong> </td>
+								</tr>
+																<tr>
+									<td>  12 Months</td>
+									<td> <strong>Hep-A 1</strong></td>
+								</tr>
+																<tr>
+									<td> 15 Months</td>
+									<td> <strong>MMR 1
+<br />Varicella 1
+<br />PCV booster</strong> </td>
+								</tr>
+																<tr>
+									<td> 16-18 Months</td>
+									<td> <strong>
+									DTP B1
+<br />IPV B1
+<br />Hib B1
+									</strong></td>
+								</tr>
+									
+																<tr>
+									<td> 18 Months</td>
+									<td> <strong>Hep-A 2</strong></td>
+								</tr>
+								
+															<tr>
+									<td> 2 Years</td>
+									<td><strong>Typhoid 1</strong> </td>
+								</tr>
+								
+															<tr>
+									<td> 4.5 - 5 Years</td>
+									<td> <strong>DTP B2
+<br />									
+<br />OPV 3
+<br />MMR 2
+<br />Varicella 2
+<br />Typhoid 2</strong> </td>
+								</tr>
+															<tr>
+									<td> 10-12 Years</td>
+									<td><strong>Tdap/Td
+									<br />
+HPV</strong> </td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					
+			</div>
+
+			<!-- Nav Sidebar -->
+			<!-- This is source ordered to be pulled to the left on larger screens -->
+			<div class="large-3 pull-9 columns">
+				<h4>Your Child's Detail</h4>
+				<hr />
+				<ul class="side-nav">
+					<li>
+						<input type="text" name="cName" id="cName" placeholder="Your Child's Name">
+						
+					</li>
+					<li>
+						<input type="text" placeholder="Date of Birth" id="datepicker" />
+					</li>
+					<li>
+						
+					</li>
+				
+				</ul>
+				<a href="#" class="button small" id="generate" style="width:100%;">View Schedule</a>
+				
+			</div>
+
 		</div>
-		<div class="large-2 columns">
-		<a href="#" class="button radius tiny" id="generate">View Schedule</a>
-		</div>	
-		
-		<div class="large-6 columns push-1">
-			<a href="#" class="button tiny" id="pdf">Download</a>
-			<a href="/getPDF" class="button tiny" id="asdrive">Add to Google Drive</a>
-			<a href="#" class="button tiny " id="driveBtn">Add to Calendar</a>
+
+
+		<div class="large-12 columns">
+<!-- 			<div class="large-2 columns">
+				<input type="text" placeholder="Child's Name" id="childName" />
+			</div>
+			<div class="large-2 columns ">
+				<input type="text" placeholder="Date of Birth" id="datepicker" />
+			</div>
+			<div class="large-2 columns">
+				<a href="#" class="button radius tiny" id="generate">View
+					Schedule</a>
+			</div> -->
+
+			<div class="large-6 columns push-1">
+
+			</div>
 		</div>
-		
-		<input type="file" id="filePicker" />
-		
+
+		<hr />
+
+		<div class="large-12 columns" id="chart"></div>
+
+
+
+
+
+
 	</div>
-	
-	<hr/>
-	
-	<div class="large-12 columns" id="chart">
-	
-	
-	</div>
-	
-	
-	
-	
-	
-	
-</div>
 
-<!-- content ends -->
+	<!-- content ends -->
 
 
 
 
 
-  <!-- Footer -->
-  
-  <footer class="row">
-    <div class="large-12 columns">
-      <hr />
-      <div class="row">
-        <div class="large-6 columns">
-          <p>� Copyright no one at all. Go to town.</p>
-        </div>
-        <div class="large-6 columns">
-          <ul class="inline-list right">
-            <li><a href="index.html#aboutus">About Vaccinate</a></li>
-            <li><a href="index.html#feedback">Feedback</a></li>
-            <li><a href="faqs.html">FAQs</a></li>
-            <li><a href="volunteer.html">Volunteer</a></li>
-          </ul>
-        </div>
-      </div>
-    </div> 
-  </footer>
+	<!-- Footer -->
+
+	<footer class="row">
+		<div class="large-12 columns">
+			<hr />
+			<div class="row">
+				<div class="large-6 columns">
+					<p>Copyright no one at all. Go to town.</p>
+				</div>
+				<div class="large-6 columns">
+					<ul class="inline-list right">
+						<li><a href="index.html#aboutus">About Vaccinate</a></li>
+						<li><a href="index.html#feedback">Feedback</a></li>
+						<li><a href="faqs.html">FAQs</a></li>
+						<li><a href="volunteer.html">Volunteer</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 
 
 
 
-   
-    
-        
-    <script src="js/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
-    <script src="js/foundation.topbar.js"></script>
-    <script src="js/foundation-datepicker.js"></script>
-    <script src="js/gcal.js"></script>
-    <script src="js/date.js"></script>
-    <script src="js/jspdf.min.js"></script>
-    <script src="js/jspdf.plugin.from_html.js"></script>
-    <script src="js/jspdf.plugin.cell.js"></script>
-    <script src="js/drive.js"></script>
-    <script gapi_processed="true" type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-    
-    
-    <script>
+
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/foundation.min.js"></script>
+	<script src="js/foundation.topbar.js"></script>
+	<script src="js/foundation-datepicker.js"></script>
+	<script src="js/gcal.js"></script>
+	<script src="js/date.js"></script>
+	<script src="js/jspdf.min.js"></script>
+	<script src="js/jspdf.plugin.from_html.js"></script>
+	<script src="js/jspdf.plugin.cell.js"></script>
+	<script src="js/drive.js"></script>
+	<script gapi_processed="true" type="text/javascript"
+		src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+
+	<script>
+	   $('.schBtns').hide();
+	     
     	$(document).foundation();
     	
     	function tableToJson(table) { 
@@ -154,7 +306,7 @@
     		}
     	
       function showTable(schedule){
-    	  var startContent = "<div class='large-3 columns'><strong> Child Name: </div><div class='large-3 columns pull-1' style='text-transform:uppercase'>"+ $('#childName').val() + "</strong> </div> <div class='large-3 columns'> <strong>Date of Birth : </div><div class='large-3 columns pull-1'>" + $('#datepicker').val() + "</strong></div> <br/> <hr />"; 
+    	  var startContent = "<div class='large-3 columns'><strong> Child Name: </div><div class='large-3 columns pull-1' style='text-transform:uppercase'>"+ $('#cName').val() + "</strong> </div> <div class='large-3 columns'> <strong>Date of Birth : </div><div class='large-3 columns pull-1'>" + $('#datepicker').val() + "</strong></div> <br/> <hr />"; 
     	  
     	  var tableContent =  startContent+ "<table id='schtable'> <thead> <tr> <th> Age </th> <th width =\"100\"> Due Date </th> <th width=\"170\"> Vaccine </th> <th> Comments </th> </tr> </thead> <tbody> ";
     	  
@@ -179,16 +331,18 @@
       }
     
       
-      $('#datepicker').click(function(){
+      //$('#datepicker').click(function(){
+    	  
     	 $('#datepicker').fdatepicker({
     		 format:'mm-dd-yyyy'
     	 }); 
-      });
+      //});
       //code for the generate function click
       $('#generate').click(function(){
     	  var dob = $('#datepicker').val();
     	  var schedule = getPersonalVaccinationSchedule(dob);
     	  showTable(schedule);
+    	  $('.schBtns').show();
     	  
       });
       
@@ -236,6 +390,5 @@
       });
     	 
     </script>
-  </body>
+</body>
 </html>
- 
