@@ -13,6 +13,8 @@ import org.joda.time.LocalDate;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -60,9 +62,13 @@ public class SchedulerPdfCreator extends HttpServlet {
 		  document.open();
 
           try {
+        	
         	  
+        	  Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+        	  Font headFont = new Font(Font.FontFamily.TIMES_ROMAN, 25, Font.BOLD);
           
-          Paragraph head  = new Paragraph("Vaccination Scheduler for "+req.getParameter("cName"));
+          Paragraph head  = new Paragraph("Vaccination Schedule for "+req.getParameter("cName"), headFont);
+          head.setAlignment(Chunk.ALIGN_CENTER);
           head.setSpacingBefore(10f);
           head.setSpacingAfter(10f);
           document.add(head);
@@ -73,7 +79,7 @@ public class SchedulerPdfCreator extends HttpServlet {
           float colWidths[] = {20f,20f,30f,40f};
           table.setWidths(colWidths);
           
-          Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+          
           
           
           
