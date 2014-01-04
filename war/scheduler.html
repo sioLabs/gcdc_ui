@@ -285,7 +285,7 @@ HPV</strong> </td>
 	     
     	$(document).foundation();
     	
-    	function tableToJson(table) { 
+/*     	function tableToJson(table) { 
     		var data = []; // first row needs to be headers var headers = [];
     		var headers=[];
     		for (var i=0; i<table.rows[0].cells.length; i++) {
@@ -301,7 +301,7 @@ HPV</strong> </td>
     		} data.push(rowData); 
     		} 
     		return data; 
-    		}
+    		} */
     	
       function showTable(schedule){
     	  var startContent = "<div class='large-3 columns'><strong> Child Name: </div><div class='large-3 columns pull-1' style='text-transform:uppercase'>"+ $('#cName').val() + "</strong> </div> <div class='large-3 columns'> <strong>Date of Birth : </div><div class='large-3 columns pull-1'>" + $('#datepicker').val() + "</strong></div> <br/> <hr />"; 
@@ -351,19 +351,10 @@ HPV</strong> </td>
       });
       
       $('#pdf').click(function(){
-    	  
-    	  var doc=new jsPDF();
-    	  var specialElementHandlers = {
-    		        '#editor': function (element, renderer) {
-    		            return true;
-    		        }
-    		    };
-    	  doc.fromHTML($('#chart').get(0), 15, 15, {
-              'width': 170,
-                  'elementHandlers': specialElementHandlers
-          });
-    	  var name = $('#childname').val() + '.pdf';
-          doc.save(name);
+    	  var link = "/getPDF?cName="+$('#cName').val()+"&dob="+$('#dob').val();
+    	  $('a#pdf').attr({target : '_blank',
+    			href :link  
+    	  });
     	  
       });
       

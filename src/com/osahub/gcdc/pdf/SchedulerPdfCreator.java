@@ -24,9 +24,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.codec.Base64;
-import com.itextpdf.text.pdf.codec.Base64.OutputStream;
-import com.sun.beans.editors.ByteEditor;
+
 
 public class SchedulerPdfCreator extends HttpServlet {
 	
@@ -40,14 +38,16 @@ public class SchedulerPdfCreator extends HttpServlet {
 
 		
 		String cName = req.getParameter("cName");
-		System.out.println(req.getParameter("dob"));
+//		System.out.println(req.getParameter("dob"));
 		dob = dtf.parseLocalDate(req.getParameter("dob"));
 		
 		String[] dates = getDates(dob);
 		
 		res.setContentType("application/pdf");
-		 res.addHeader("Content-Disposition", "attachment; filename=\"test1.pdf\"");		
+		 res.addHeader("Content-Disposition", "attachment; filename=\"" +req.getParameter("cName")+".pdf\"");		
 
+//		 System.out.println(req.getParameter("cName"));
+		 
 		 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		Document document = new Document(PageSize.A4,0.75f, 0.75F, 0.75F, 0.75F);
@@ -191,7 +191,7 @@ public class SchedulerPdfCreator extends HttpServlet {
 			else
 				dates[j] = dob.plusMonths(days[j]).toString();
 			
-			System.out.println(dates[j]);
+			//System.out.println(dates[j]);
 		}
 	     
 		
