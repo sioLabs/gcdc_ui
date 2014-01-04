@@ -1,12 +1,12 @@
-function httpGet(theUrl)
-{
-    var xmlHttp = null;
-
-    xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
+//function httpGet(theUrl)
+//{
+//    var xmlHttp = null;
+//
+//    xmlHttp = new XMLHttpRequest();
+//    xmlHttp.open( "GET", theUrl, false );
+//    xmlHttp.send( null );
+//    return xmlHttp.responseText;
+//}
 
 
 //
@@ -61,23 +61,23 @@ function httpGet(theUrl)
 //doc.text(20,len,'check how this is saving.');
 //doc.line(20,250,50,250);
 //doc.text(20,255,"Signature");
-
-var fileName = "test.pdf";
-//var data = doc.output();
-//console.log(data);
-var data = httpGet('getPDF');
-//var data = pdf.responseText;
-//console.log(data);
-var buffer = new ArrayBuffer(data.length);
-var array = new Uint8Array(buffer);
-for (var i = 0; i < data.length; i++) {
-	array[i] = data.charCodeAt(i);
-}
 //
-var blob = new Blob(
-		[array],
-		{type: 'application/pdf', encoding: 'raw'}
-);
+//var fileName = "test.pdf";
+////var data = doc.output();
+////console.log(data);
+//var data = httpGet('getPDF');
+////var data = pdf.responseText;
+////console.log(data);
+//var buffer = new ArrayBuffer(data.length);
+//var array = new Uint8Array(buffer);
+//for (var i = 0; i < data.length; i++) {
+//	array[i] = data.charCodeAt(i);
+//}
+////
+//var blob = new Blob(
+//		[array],
+//		{type: 'application/pdf', encoding: 'raw'}
+//);
 
 //blob = data;
 //console.log(blob);
