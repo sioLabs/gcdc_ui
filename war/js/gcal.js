@@ -42,6 +42,7 @@ function handleClientLoad() {
 	    gapi.client.load('calendar', 'v3', function() {
 		    //insert into my calendar
 //		    
+	    	
 	    	for (var i = 0;i<data.length;i++){
 	    		var resource = getEventObject(data[i]);
 	    		var request = gapi.client.calendar.events.insert({
