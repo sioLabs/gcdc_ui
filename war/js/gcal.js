@@ -1,4 +1,5 @@
 
+
 var clientId = '296331844386-34pj6h3emkir85tt09ptip1ponfuqnso.apps.googleusercontent.com';
 var apiKey = 'AIzaSyB58_n-hiIRJ1FizLyqU810ihWjY0Sku1Q';
 var scopes = 'https://www.googleapis.com/auth/calendar';
@@ -40,17 +41,7 @@ function handleClientLoad() {
 		  
 	    gapi.client.load('calendar', 'v3', function() {
 		    //insert into my calendar
-//		    var resource = {
-//		    		  "summary": "Vaccinate your child with",
-//		    		  "location": "England",
-//		    		  "start": {
-//		    		    "date":"2013-12-14"
-//		    		  },
-//		    		  "end": {
-//		    		    "date":"2013-12-14"
-//		    		    }
-//		    		  };
-	    	
+//		    
 	    	for (var i = 0;i<data.length;i++){
 	    		var resource = getEventObject(data[i]);
 	    		var request = gapi.client.calendar.events.insert({
@@ -65,28 +56,15 @@ function handleClientLoad() {
 	    	}
 	    	
 		    
+	    });
+	}
+	
 		    
-		    
-		    
-		
-//			     request = gapi.client.calendar.events.list({
-//			      'calendarId': 'primary'
-//			    });
-		    
-		          
-//		    request.execute(function(resp) {
-//		      for (var i = 0; i < resp.items.length; i++) {
-//		        var li = document.createElement('li');
-//		        li.appendChild(document.createTextNode(resp.items[i].summary));
-//		        document.getElementById('events').appendChild(li);
-//		      }
-//		    });
-		  });
-		}
+	
 	
 	function getEventObject(data1){
 		
-		console.log(data1);
+		//console.log(data1);
 		
 		var summary = "Vaccinate your child with : " 
 			for(var i = 0 ;i <data1.vaccination.length; i++){
@@ -108,11 +86,12 @@ function handleClientLoad() {
 	}
 	
 	
+	
 	function getVaccinationSchedule(dob){
 		
 		//alert('date is'+dob);
 
-		var data = [
+		data = [
 		            {
 		              "date":Date.parse(dob).addDays(1).toString("yyyy-MM-dd"),
 		              "vaccination" : ["BCG - Injection", "Hep B-1"]    		            	
@@ -272,14 +251,14 @@ function getPersonalVaccinationSchedule(dob){
 	
 	
 	
-	$(document).ready(function () {
+$(document).ready(function () {	
 		  //	
-	$('#schedulerBtn').click(function(){
+	$('#calBtn').click(function(){
 	
 		var dob = $('#dob').val();
 		  data = getVaccinationSchedule(dob);
-	handleClientLoad();
-	handleAuthClick();
+	      handleClientLoad();
+	      //handleAuthClick();
 		
 		return;
 	});
