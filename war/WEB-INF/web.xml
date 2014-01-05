@@ -13,5 +13,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-name>PDFCreator</servlet-name>
     <url-pattern>/getPDF</url-pattern>
   </servlet-mapping>
-  
+
+ <servlet>
+    <servlet-name>msg</servlet-name>
+    <servlet-class>com.osahub.gcdc.comm.Example</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>msg</servlet-name>
+    <url-pattern>/msg</url-pattern>
+  </servlet-mapping>  
 </web-app>
